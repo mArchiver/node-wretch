@@ -12,29 +12,27 @@ var username = info.query.id;
 var album    = info.query.book;
 var path     = './download/' + username + '/' + album + '/';
 
+var dirPath = [
+    'download',
+    'download/' + username ,
+    'download/' + username+'/' + album
+];
+
 //建資料夾
-fs.mkdir('download',function(e){
-    if(!e || (e && e.code === 'EEXIST')){
-        fs.mkdir( 'download/' + username ,function(e){
+Array.prototype.mkdir = function () {
+    var that = this;
+    that.map(function (dirPath) {
+        fs.mkdir( dirPath.toString() ,function(e){
             if(!e || (e && e.code === 'EEXIST')){
-                fs.mkdir( 'download/' + username+'/' + album ,function(e){
-                    if(!e || (e && e.code === 'EEXIST')){
-                        //do something with contents
-                    } else {
-                        //debug
-                        console.log(e);
-                    }
-                });
+                // callback();
             } else {
-                //debug
-                console.log(e);
+                console.log('建立目錄錯誤');
+                process.exit();
             }
         });
-    } else {
-        //debug
-        console.log(e);
-    }
-});
+    })
+}
+
 
 var getAlbumPic = function(inputUrl, callback) {
     request({
@@ -94,5 +92,5 @@ var main = function (arguments) {
     });
 }
 
-
+dirPath.mkdir();
 main();
