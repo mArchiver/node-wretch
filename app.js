@@ -62,7 +62,11 @@ var getSinglePic = function(inputUrl, callback) {
     }, function(error, response, body) {
         var $ = cheerio.load(body);
         var pic = $('.displayimg').attr('src') || $('#DisplayImage').attr('src');;
-        callback(pic);
+        if (pic) {
+            callback(pic);
+        }else {
+            console.log(inputUrl, '非照片不下載');
+        }
     });
 }
 
