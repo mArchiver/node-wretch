@@ -61,7 +61,7 @@ var getSinglePic = function(inputUrl, callback) {
         jar: jar
     }, function(error, response, body) {
         var $ = cheerio.load(body);
-        var pic = $('.displayimg').attr('src');
+        var pic = $('.displayimg').attr('src') || $('#DisplayImage').attr('src');;
         callback(pic);
     });
 }
