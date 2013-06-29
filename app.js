@@ -6,7 +6,7 @@ var cookie  = request.cookie('showall=1');
 var jar     = request.jar();
     jar.add(cookie);
 
-var inputUrl = '';
+var inputUrl = process.argv[2];
 var info     = url.parse(inputUrl,true);
 var username = info.query.id;
 var album    = info.query.book;
